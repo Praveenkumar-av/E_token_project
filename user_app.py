@@ -30,12 +30,12 @@ class Order_app :
 
 class Login(Order_app) :
     def __init__(self) :
-        # connect to mySQL database
+        # connect to mySQL database - student_data
         self.conn=mysql.connector.connect(host='localhost',database='student_data',user='root',password='2077')
         # prepare a cursor
         self.cursor=self.conn.cursor()
         # executing query
-        self.cursor.execute('Select Roll_no, Password from roll_no')
+        self.cursor.execute('Select Roll_no, Password from student')
 
         # get all rows and store in data instance
         self.data={}
@@ -54,15 +54,15 @@ class Login(Order_app) :
         self.login_frame.pack()
         
         # Entry box and label
-        self.user_lbl=Label(text='Enter the Username :')
-        self.pass_lbl=Label(text='Enter the Password :')
+        self.user_lbl=Label(self.login_frame,text='Enter the Username :')
+        self.pass_lbl=Label(self.login_frame,text='Enter the Password :')
         self.user_ent=Entry(self.login_frame,width=25,fg='blue',bg='white',font=('Arial',14))
         self.pass_ent=Entry(self.login_frame,width=25,fg='blue',bg='white',font=('Arial',14),show='*')
 
         self.user_lbl.place(x=50,y=100)  # username label
         self.user_ent.place(x=200,y=100) # username entry
         self.pass_lbl.place(x=50,y=150)  # password label
-        self.pass_ent.place(x=200,y=150)  # password entry
+        self.pass_ent.place(x=200,y=150)  # password entryb
 
         # Next button 
         self.next_b=Button(self.login_frame,text='Next',width=14,height=2,bg='brown',fg='white',activebackground='green',activeforeground='red',command=self.display)
@@ -80,7 +80,7 @@ class Login(Order_app) :
         else :
             if self.username in self.data :
                 if self.data[self.username]==self.password :
-                    print('PASS')
+                    self.Destroy_frame(self.login_frame,ItemSelection)
                 else :
                     try : error_login.destroy() 
                     except : pass
@@ -91,6 +91,52 @@ class Login(Order_app) :
                 except : pass
                 error_login=Label(self.login_frame,text='Username does not exist!',font=('arial',-14,),fg='red',bg='aquamarine')
                 error_login.place(x=150,y=300)
+
+class ItemSelection(Order_app) :
+    def __init__(self) :
+        # connect to mySQL database - student_data
+        self.conn=mysql.connector.connect(host='localhost',database='student_data',user='root',password='2077')
+        # prepare a cursor
+        self.cursor=self.conn.cursor()
+        # executing query
+        self.cursor.execute('Select * from stock')
+
+        # get purchase items from database and store in items
+        self.items=[]
+        for row in self.cursor.fetchall() :
+            self.items.append(list(row))
+
+        self.cursor.close()
+        self.conn.close()
+
+        self.select()
+
+    def select(self) :
+        self.selection_frame=Frame(height=400,width=500,bg='aquamarine')
+        self.selection_frame.propagate(0)
+        self.selection_frame.pack()
+
+        # create label 
+        self.select_lbl=Label(self.selection_frame,text='Select one or more items you want below',font='Calibri 14')
+        self.select_lbl.pack(side=TOP,pady=10)
+
+        # create list box with names and price
+        self.select_lst=Listbox(self.selection_frame,font='Arial 12 bold',fg='blue',bg='yellow',height=8,selectmode=MULTIPLE)
+        self.select_lst.place(x=50,y=100)
+
+        for i in self.items :
+            self.select_lst.insert(END,i[0])
+
+        self.select_lst.bind('<<ListboxSelect>>',self.on_select)
+
+    def on_select(self,event) :
+        '''This method stores the selected items in the Listbox'''
+        # know the indexes of the selected items  
+        self.indexes=self.select_lst.curselection()
+
+        self.purchased=[]
+        print('Purchased :',self.indexes)
+
 
 root=Tk()
 start=Order_app(root)
