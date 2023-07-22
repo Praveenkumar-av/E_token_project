@@ -17,7 +17,7 @@ class OrderApp :
         self.home_lbl1.pack(side=TOP,pady=10)
         self.home_lbl2.pack(side=TOP,pady=10)
 
-        # login and clase button
+        # login and class button
         self.b_login=Button(self.home_frame,text='login',width=14,height=2,bg='white',fg='blue',activebackground='green',activeforeground='red',command=lambda:self.Destroy_frame(self.home_frame,Login))
         self.b_close=Button(self.home_frame,text='Close',width=14,height=2,bg='red',fg='white',activebackground='green',activeforeground='red',command=quit)
         self.b_close.pack(side=BOTTOM,pady=15)
@@ -79,23 +79,23 @@ class Login(OrderApp) :
 
         # check for username and password
         if self.username=='' or self.password=='' :
-            error_login=Label(self.login_frame,text='Enter username and password',font=('arial',-14,),fg='red',bg='aquamarine')
-            error_login.place(x=150,y=300)
+            self.error_login=Label(self.login_frame,text='Enter username and password',font=('arial',-14,),fg='red',bg='aquamarine')
+            self.error_login.place(x=150,y=300)
         else :
             if self.username in self.data :
                 if self.data[self.username]==self.password :
                     self.login_frame.destroy()
                     ItemSelection(self.username)
                 else :
-                    try : error_login.destroy() 
+                    try : self.error_login.destroy() 
                     except : pass
-                    error_login=Label(self.login_frame,text='incorrect password!',font=('arial',-14,),fg='red',bg='aquamarine')
-                    error_login.place(x=150,y=300)
+                    self.error_login=Label(self.login_frame,text='incorrect password!',font=('arial',-14,),fg='red',bg='aquamarine')
+                    self.error_login.place(x=150,y=300)
             else :
-                try : error_login.destroy() 
+                try : self.error_login.destroy() 
                 except : pass
-                error_login=Label(self.login_frame,text='Username does not exist!',font=('arial',-14,),fg='red',bg='aquamarine')
-                error_login.place(x=150,y=300)
+                self.error_login=Label(self.login_frame,text='Username does not exist!',font=('arial',-14,),fg='red',bg='aquamarine')
+                self.error_login.place(x=150,y=300)
 
 class ItemSelection() :
     def __init__(self,username) :
@@ -245,12 +245,17 @@ class Purchase(Login) :
             self.cursor=self.conn.cursor()
             # executing query
             # prepare SQL query string to update a Id and Items
-            self.cursor.execute("update student set Id='%s', Items='%s' where Roll_no='%s'"%(self.id,self.purchased,self.username))
-            self.conn.commit()
-
-            self.cursor.close()
-            self.conn.close()
-
+            try :
+                self.cursor.execute("update student set Id='%s', Items='%s' where Roll_no='%s'"%(self.id,self.purchased,self.username))
+                self.conn.commit()
+            except :
+                # rollback if there is any error
+                self.conn.rollback()
+            finally :
+                # close connection
+                self.cursor.close()
+                self.conn.close()
+            
         else :
             self.error_lbl=Label(self.purchase_frame,text='Please make purchase',font='arial 16')
             self.error_lbl.place(x=220,y=250)
