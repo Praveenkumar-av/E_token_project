@@ -18,15 +18,15 @@ class OrderApp :
         self.home_lbl2.pack(side=TOP,pady=10)
 
         # login and class button
-        self.b_login=Button(self.home_frame,text='login',width=14,height=2,bg='white',fg='blue',activebackground='green',activeforeground='red',command=lambda:self.Destroy_frame(self.home_frame,Login))
+        self.b_login=Button(self.home_frame,text='login',width=14,height=2,bg='white',fg='blue',activebackground='green',activeforeground='red',command=self.callLogin)
         self.b_close=Button(self.home_frame,text='Close',width=14,height=2,bg='red',fg='white',activebackground='green',activeforeground='red',command=quit)
         self.b_close.pack(side=BOTTOM,pady=15)
         self.b_login.pack(side=BOTTOM,pady=5)
     
-    def Destroy_frame(self,current,next) :
+    def callLogin(self) :
         '''This method destroys the current frame and calls the next frame'''
-        current.destroy()
-        next()
+        self.home_frame.destroy()
+        Login()
 
 class Login(OrderApp) :
     def __init__(self) :
@@ -79,6 +79,8 @@ class Login(OrderApp) :
 
         # check for username and password
         if self.username=='' or self.password=='' :
+            try : self.error_login.destroy() 
+            except : pass
             self.error_login=Label(self.login_frame,text='Enter username and password',font=('arial',-14,),fg='red',bg='aquamarine')
             self.error_login.place(x=150,y=300)
         else :
