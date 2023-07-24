@@ -12,7 +12,7 @@ class OrderApp :
         self.home_frame.pack()
 
         # label about the app
-        self.home_lbl1=Label(self.home_frame,text='Welcome to ABC app',width=20,height=1,font=('Courier',-30,'bold'),fg='blue',bg='yellow')
+        self.home_lbl1=Label(self.home_frame,text='Welcome to E token app',width=23,height=1,font=('Courier',-30,'bold'),fg='white',bg='green')
         self.home_lbl2=Label(self.home_frame,text='Order anywhere from this app!',width=35,height=1,font=('arial',-14,'bold'),fg='violet',bg='cornsilk')
         self.home_lbl1.pack(side=TOP,pady=10)
         self.home_lbl2.pack(side=TOP,pady=10)
@@ -54,8 +54,8 @@ class Login(OrderApp) :
         self.login_frame.pack()
         
         # Entry box and label
-        self.user_lbl=Label(self.login_frame,text='Enter the Username :')
-        self.pass_lbl=Label(self.login_frame,text='Enter the Password :')
+        self.user_lbl=Label(self.login_frame,text='Enter the Username :',bg='aquamarine')
+        self.pass_lbl=Label(self.login_frame,text='Enter the Password :',bg='aquamarine')
         self.user_ent=Entry(self.login_frame,width=25,fg='blue',bg='white',font=('Arial',14))
         self.pass_ent=Entry(self.login_frame,width=25,fg='blue',bg='white',font=('Arial',14),show='*')
 

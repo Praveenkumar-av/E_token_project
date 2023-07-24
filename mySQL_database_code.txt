@@ -1,0 +1,41 @@
+Student database :
+
+CREATE TABLE `student_data`.`student` (
+  `Roll_no` VARCHAR(10 NOT NULL,
+  `Password` VARCHAR(10) NULL,
+  `Id` VARCHAR(10) NULL,
+  `Item` VARCHAR(40) NULL,
+  PRIMARY KEY (`Roll_no`),
+  UNIQUE INDEX `Roll_no_UNIQUE` (`Roll_no` ASC) VISIBLE)
+COMMENT = 'Roll number of students';
+
+INSERT INTO `student_data`.`student` (`Roll_no`, `Password`) VALUES ('22i201', '22I201');
+INSERT INTO `student_data`.`student` (`Roll_no`, `Password`) VALUES ('22i202', '22I202');
+INSERT INTO `student_data`.`student` (`Roll_no`, `Password`) VALUES ('22i203', '22I203');
+INSERT INTO `student_data`.`student` (`Roll_no`, `Password`) VALUES ('22i204', '22I204');
+INSERT INTO `student_data`.`student` (`Roll_no`, `Password`) VALUES ('22i205', '22I205');
+INSERT INTO `student_data`.`student` (`Roll_no`, `Password`) VALUES ('22i206', '22I206');
+INSERT INTO `student_data`.`student` (`Roll_no`, `Password`) VALUES ('22i207', '22I207');
+INSERT INTO `student_data`.`student` (`Roll_no`, `Password`) VALUES ('22i208', '22I208');
+INSERT INTO `student_data`.`student` (`Roll_no`, `Password`) VALUES ('22i209', '22I209');
+INSERT INTO `student_data`.`student` (`Roll_no`, `Password`) VALUES ('22i210', '22I210');
+INSERT INTO `student_data`.`student` (`Roll_no`, `Password`) VALUES ('22i211', '22I211');
+
+
+
+Items in shop database :
+
+CREATE TABLE `student_data`.`stock` (
+  `Items` VARCHAR(40) NOT NULL,
+  `Price` INT NULL,
+  PRIMARY KEY (`Items`));
+
+INSERT INTO `student_data`.`stock` (`Items`, `Price`) VALUES ('Biscuit', '10');
+INSERT INTO `student_data`.`stock` (`Items`, `Price`) VALUES ('French fries', '50');
+INSERT INTO `student_data`.`stock` (`Items`, `Price`) VALUES ('Coffee', '10');
+INSERT INTO `student_data`.`stock` (`Items`, `Price`) VALUES ('Tea', '10');
+INSERT INTO `student_data`.`stock` (`Items`, `Price`) VALUES ('Bread', '20');
+INSERT INTO `student_data`.`stock` (`Items`, `Price`) VALUES ('Sandwich', '30');
+INSERT INTO `student_data`.`stock` (`Items`, `Price`) VALUES ('Veg puffs', '10');
+INSERT INTO `student_data`.`stock` (`Items`, `Price`) VALUES ('Egg puffs', '20');
+INSERT INTO `student_data`.`stock` (`Items`, `Price`) VALUES ('Chicken roll', '50');
