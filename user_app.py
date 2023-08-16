@@ -262,7 +262,6 @@ class Purchase(Login) :
             self.error_lbl=Label(self.purchase_frame,text='Please make purchase',font='arial 16')
             self.error_lbl.place(x=220,y=250)
 
-
 root=Tk()
 start=OrderApp(root)
 root.mainloop()

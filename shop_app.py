@@ -25,7 +25,7 @@ class ShopApp :
         self.adduser=Button(self.home_frame,text='Add new User',width=14,height=2,bg='white',fg='blue',activebackground='green',activeforeground='red',command=self.callAdduser)
         self.adduser.pack(side=BOTTOM,pady=10)
 
-        # login and class button
+        # login button
         self.b_login=Button(self.home_frame,text='login',width=14,height=2,bg='white',fg='blue',activebackground='green',activeforeground='red',command=self.callLogin)
         self.b_login.pack(side=BOTTOM,pady=10)
 
